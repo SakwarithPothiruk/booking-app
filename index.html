@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบจองคิวเข้าซ้อม - ตุลาคม 2569</title>
+  <!-- นำเข้า Google Fonts ภาษาไทย (Kanit) เพื่อความสวยงาม -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header หัวข้อระบบ -->
+    <header class="app-header">
+      <h1>ระบบจองคิวเข้าซ้อม</h1>
+      <p class="subtitle">รอบการซ้อมประจำเดือน ตุลาคม 2569 (2 - 26 ต.ค. 2569)</p>
+    </header>
+
+    <!-- ส่วนกรอกข้อมูลผู้ใช้งาน -->
+    <section class="user-info-card">
+      <h3>1. กรอกข้อมูลผู้จอง</h3>
+      <div class="form-group-row">
+        <div class="form-group">
+          <label for="userName">ชื่อเล่น <span class="required">*</span></label>
+          <input type="text" id="userName" placeholder="ระบุชื่อเล่น" required>
+        </div>
+        <div class="form-group">
+          <label for="userContact">เบอร์โทรศัพท์ / ช่องทางติดต่อ <span class="required">*</span></label>
+          <input type="text" id="userContact" placeholder="เช่น 081-xxx-xxxx หรือ LINE ID" required>
+        </div>
+      </div>
+    </section>
+
+    <!-- ส่วนปฏิทินเลือกวันและบทบาท -->
+    <section class="calendar-section">
+      <div class="calendar-header">
+        <h3>2. เลือกวันและบทบาทการเข้าซ้อม</h3>
+        <p class="hint-text">💡 เงื่อนไข: ต้องเลือกเข้าซ้อมอย่างน้อย 3 วันขึ้นไป (สตาฟอย่างน้อย 3 คน/วัน, พยาบาลได้เพียง 1 คน/วัน)</p>
+      </div>
+
+      <!-- สัญลักษณ์แสดงสถานะ (Legend) -->
+      <div class="legend-bar">
+        <span class="legend-item"><span class="badge staff-badge"></span> สตาฟ</span>
+        <span class="legend-item"><span class="badge nurse-badge"></span> พยาบาล</span>
+        <span class="legend-item"><span class="badge full-badge"></span> พยาบาลเต็มแล้ว</span>
+      </div>
+
+      <!-- ตารางปฏิทิน (JavaScript จะสร้างการ์ดวันตั้งแต่วันที่ 2 - 26 ต.ค. 2569 ลงในนี้) -->
+      <div id="calendarGrid" class="calendar-grid">
+        <!-- Calendar cards dynamically generated via app.js -->
+      </div>
+    </section>
+
+    <!-- ส่วนสรุปรายการจองและปุ่มยืนยัน -->
+    <section class="summary-card">
+      <div class="summary-header">
+        <h3>3. สรุปรายการที่เลือก</h3>
+        <span class="status-counter">เลือกแล้ว <strong id="selectedCount">0</strong> / อย่างน้อย 3 วัน</span>
+      </div>
+
+      <!-- รายการวันที่เลือก -->
+      <ul id="selectedList" class="selected-list">
+        <li class="empty-state">ยังไม่ได้เลือกวันใดๆ กรุณาคลิกเลือกบทบาทในปฏิทิน</li>
+      </ul>
+
+      <!-- ปุ่มยืนยันการจอง -->
+      <button id="submitBtn" class="btn-submit" onclick="submitBooking()" disabled>
+        ยืนยันการจองคิว
+      </button>
+    </section>
+  </div>
+
+  <!-- Firebase Web SDK v9 (Compat Mode เพื่อให้เขียนและเข้าใจง่าย) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  
+  <!-- JavaScript หลักของแอปพลิเคชัน -->
+  <script src="app.js"></script>
+</body>
+</html>

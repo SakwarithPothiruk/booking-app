@@ -1,0 +1,375 @@
+/* ==========================================
+   1. Theme Variables & Reset
+   ========================================== */
+:root {
+  --primary-color: #007aff;
+  --primary-hover: #0056b3;
+  --primary-light: #e5f1ff;
+  --bg-light: #f4f8fb;
+  --card-bg: #ffffff;
+  --text-main: #1c1c1e;
+  --text-muted: #6e6e73;
+  --border-color: #e2e8f0;
+  --success-color: #34c759;
+  --danger-color: #ff3b30;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --shadow-sm: 0 4px 12px rgba(0, 122, 255, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Kanit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-main);
+  padding: 16px 12px;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   2. Container Structure
+   ========================================== */
+.container {
+  max-width: 480px; /* กระชับ เหมาะสมกับมือถือ */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  padding: 12px 8px 4px;
+}
+
+.app-header h1 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 4px;
+}
+
+.app-header .subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Card General Style */
+.user-info-card,
+.calendar-section,
+.summary-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.user-info-card h3,
+.calendar-header h3,
+.summary-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+/* ==========================================
+   3. Form Inputs (กรอกชื่อ/เบอร์)
+   ========================================== */
+.form-group-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.required {
+  color: var(--danger-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  background-color: #fafbfc;
+}
+
+.form-group input:focus {
+  border-color: var(--primary-color);
+  background-color: #ffffff;
+}
+
+/* ==========================================
+   4. Calendar Section (บรรทัดละ 3-4 วัน)
+   ========================================== */
+.hint-text {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+/* Legend สัญลักษณ์ */
+.legend-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.staff-badge { background-color: var(--primary-color); }
+.nurse-badge { background-color: var(--success-color); }
+.full-badge { background-color: #cbd5e1; }
+
+/* Calendar Grid */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 วันต่อบรรทัด */
+  gap: 8px;
+}
+
+/* การ์ดแต่ละวัน (date-card) */
+.date-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.date-card.selected {
+  border-color: var(--primary-color);
+  background-color: var(--primary-light);
+}
+
+.date-header {
+  margin-bottom: 6px;
+}
+
+.date-header .day-name {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.date-header .day-number {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* สถานะตัวเลขในวัน */
+.slot-status {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  padding: 2px 0;
+  border-top: 1px dashed var(--border-color);
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.status-item span {
+  display: none; /* ซ่อนคำป้ายชื่อย่อให้หน้าไม่อัดแน่นเกินไป */
+}
+
+.text-available { color: var(--success-color); font-weight: 500; }
+.text-full { color: var(--text-muted); text-decoration: line-through; }
+
+/* ปุ่มเลือกบทบาทภายในวัน */
+.role-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-role {
+  width: 100%;
+  padding: 4px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: var(--text-main);
+}
+
+.btn-role.btn-staff.active {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
+}
+
+.btn-role.btn-nurse.active {
+  background-color: var(--success-color);
+  color: #ffffff;
+  border-color: var(--success-color);
+}
+
+.btn-role.disabled,
+.btn-role:disabled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   5. Summary Card & Shopping Cart Style
+   ========================================== */
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.status-counter {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.status-counter strong {
+  color: var(--primary-color);
+}
+
+.selected-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  padding-right: 4px;
+}
+
+.empty-state {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 16px 0;
+  background: #f8fafc;
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border-color);
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.summary-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.summary-badge {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.badge-staff { background-color: var(--primary-color); }
+.badge-nurse { background-color: var(--success-color); }
+
+.btn-remove {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.btn-remove:hover {
+  color: var(--danger-color);
+}
+
+/* Submit Button */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-submit:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   6. Media Query Responsive
+   ========================================== */
+/* หน้าจอมือถือขนาดเล็กมาก (กว้างน้อยกว่า 360px) ให้ปรับปฏิทินเป็น 3 วันต่อบรรทัด */
+@media (max-width: 360px) {
+  .calendar-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
